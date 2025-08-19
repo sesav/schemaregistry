@@ -1,0 +1,42 @@
+name: Publish to PyPI on tag
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  release-build-and-publish-pypi:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+
+    environment:
+      name: pypi
+      url: https://pypi.org/p/structregistry
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: pyproject.toml
+
+      - name: Build
+        run: |
+          uv sync --all-extras
+          uv build
+
+      - name: Upload distributions
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-dists
+          path: dist/
+
+      - name: Publish PyPI
+        run: uv publish

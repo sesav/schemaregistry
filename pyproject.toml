@@ -1,5 +1,5 @@
 [project]
-name = "schemaregistry"
+name = "structregistry"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -22,7 +22,7 @@ dependencies = []
 
 
 [project.urls]
-"Source code" = "https://github.com/sesav/schemaregistry"
+"Source code" = "https://github.com/sesav/structregistry"
 
 [build-system]
 requires = ["uv_build>=0.8.11,<0.9.0"]
